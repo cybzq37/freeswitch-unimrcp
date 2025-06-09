@@ -1,0 +1,35 @@
+D:\JetBrains\Toolbox\apps\CLion\ch-0\232.8660.186\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=D:/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/ninja/win/x64/ninja.exe -G Ninja -S D:\Workspace\IVR\unimrcp\unimrcp-1.5.0 -B D:\Workspace\IVR\unimrcp\unimrcp-1.5.0\cmake-build-debug
+CMake Deprecation Warning at CMakeLists.txt:1 (cmake_minimum_required):
+  Compatibility with CMake < 2.8.12 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value or use a ...<max> suffix to tell
+  CMake that the project does not need compatibility with older versions.
+
+
+-- The C compiler identification is GNU 13.1.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: D:/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/mingw/bin/gcc.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Could NOT find PkgConfig (missing: PKG_CONFIG_EXECUTABLE) 
+    Reason given by package: The command
+      "D:/DevBox/w64devkit/bin/pkg-config.exe" --version
+    failed with output:
+
+    stderr: 
+      
+    result: 
+拒绝访问。
+
+-- Dynamic APR library not found, trying static
+CMake Error at D:/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/win/x64/share/cmake-3.26/Modules/FindPackageHandleStandardArgs.cmake:230 (message):
+  Could NOT find APR (missing: APR_LIBRARIES APR_INCLUDE_DIRS)
+Call Stack (most recent call first):
+  D:/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/win/x64/share/cmake-3.26/Modules/FindPackageHandleStandardArgs.cmake:600 (_FPHSA_FAILURE_MESSAGE)
+  build/cmake/FindAPR.cmake:278 (find_package_handle_standard_args)
+  CMakeLists.txt:16 (find_package)
+
+
+-- Configuring incomplete, errors occurred!
