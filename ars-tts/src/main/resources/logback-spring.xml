@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <springProperty scope="context" name="APP_NAME" source="spring.application.name"/>
+    <property name="LOG_HOME" value="${LOG_FILE:-${LOG_PATH:-/spring-log/${APP_NAME:-noApplicationName}/}}}"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+    <!--多环境的日志输出-->
+    <!--根据不同环境（prod:生产环境，test:测试环境，dev:开发环境）来定义不同的日志输出，-->
+    <!--在 logback-spring.xml中使用 springProfile 节点来定义，方法如下：-->
+    <springProfile name="dev">
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+    <springProfile name="!dev">
+        <!--ERROR 级别的日志-->
+        <!--按照每天生成日志文件 -->
+        <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <filter class="ch.qos.logback.classic.filter.LevelFilter">
+                <level>ERROR</level>
+                <onMatch>ACCEPT</onMatch>
+                <onMismatch>DENY</onMismatch>
+            </filter>
+            <encoder>
+                <pattern>${FILE_LOG_PATTERN}</pattern>
+            </encoder>
+            <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                <!--日志文件输出的文件名-->
+                <fileNamePattern>${LOG_HOME}/error.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+                <!--单个文件最大占用存储-->
+                <maxFileSize>${LOG_FILE_MAX_SIZE:-10MB}</maxFileSize>
+                <!--日志文件保留天数-->
+                <maxHistory>${LOG_FILE_MAX_HISTORY:-30}</maxHistory>
+                <!--所有日志最大占用存储-->
+                <totalSizeCap>${LOG_FILE_TOTAL_SIZE_CAP:-250MB}</totalSizeCap>
+            </rollingPolicy>
+        </appender>
+        <!--WARN 级别的日志-->
+        <appender name="WARN" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <filter class="ch.qos.logback.classic.filter.LevelFilter">
+                <level>WARN</level>
+                <onMatch>ACCEPT</onMatch>
+                <onMismatch>DENY</onMismatch>
+            </filter>
+            <encoder>
+                <pattern>${FILE_LOG_PATTERN}</pattern>
+            </encoder>
+            <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                <!--日志文件输出的文件名-->
+                <fileNamePattern>${LOG_HOME}/warn.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+                <!--单个文件最大占用存储-->
+                <maxFileSize>${LOG_FILE_MAX_SIZE:-10MB}</maxFileSize>
+                <!--日志文件保留天数-->
+                <maxHistory>${LOG_FILE_MAX_HISTORY:-30}</maxHistory>
+                <!--所有日志最大占用存储-->
+                <totalSizeCap>${LOG_FILE_TOTAL_SIZE_CAP:-250MB}</totalSizeCap>
+            </rollingPolicy>
+        </appender>
+        <!--ALL 级别的日志-->
+        <appender name="ALL" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <filter class="ch.qos.logback.classic.filter.LevelFilter">
+                <level>INFO</level>
+                <onMatch>ACCEPT</onMatch>
+                <onMismatch>ACCEPT</onMismatch>
+            </filter>
+            <encoder>
+                <pattern>${FILE_LOG_PATTERN}</pattern>
+            </encoder>
+            <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                <!--日志文件输出的文件名-->
+                <fileNamePattern>${LOG_HOME}/all.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+                <!--单个文件最大占用存储-->
+                <maxFileSize>${LOG_FILE_MAX_SIZE:-10MB}</maxFileSize>
+                <!--日志文件保留天数-->
+                <maxHistory>${LOG_FILE_MAX_HISTORY:-30}</maxHistory>
+                <!--所有日志最大占用存储-->
+                <totalSizeCap>${LOG_FILE_TOTAL_SIZE_CAP:-250MB}</totalSizeCap>
+            </rollingPolicy>
+        </appender>
+
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="WARN"/>
+            <appender-ref ref="ERROR"/>
+            <appender-ref ref="ALL"/>
+        </root>
+    </springProfile>
+</configuration>
