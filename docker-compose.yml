@@ -1,0 +1,26 @@
+version: '1'
+services:
+  myservice:
+    image: freeswitch-unimrcp:0.0.7
+    ports:
+      - 5060:5060
+      - 5080:5080
+      - "16384-16484:16384-16484"
+      - 8060:8060
+    volumes:
+      - ./freeswitch/conf:/usr/local/freeswitch/conf
+      - ./freeswitch/log:/usr/local/freeswitch/log
+      - ./freeswitch/scripts:/usr/local/freeswitch/scripts
+      - ./freeswitch/grammar:/usr/local/freeswitch/grammar
+      - ./freeswitch/sounds:/usr/local/freeswitch/sounds
+
+      - ./unimrcp/conf/unimrcpserver.xml:/usr/local/unimrcp/conf/unimrcpserver.xml
+      - ./unimrcp/log:/usr/local/unimrcp/log
+
+      - ./supervisor/conf.d:/etc/supervisor/conf.d
+      - ./supervisor/supervisord.conf:/etc/supervisor/supervisord.conf
+      - ./supervisor/log:/var/log/supervisor
+      
+      - ./scripts/start.sh:/start.sh
+      
+    command: /bin/bash /start.sh

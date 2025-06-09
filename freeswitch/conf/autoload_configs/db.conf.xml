@@ -1,0 +1,9 @@
+<configuration name="db.conf" description="LIMIT DB Configuration">
+  <settings>
+    <!--<param name="odbc-dsn" value="dsn:user:pass"/>-->
+    <!-- <param name="odbc-dsn" value="mariadb://Server=172.16.220.20;Port=3306;Database=freeswitch;Uid=root;Pwd=123456;:" /> -->
+    <!--
+    <param name="odbc-dsn" value="$${db_url}" />
+    -->
+  </settings>
+</configuration>
